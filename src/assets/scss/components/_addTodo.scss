@@ -1,9 +1,9 @@
 input {
-  background-color: $todosBackgroundColor;
+  background-color: var(--todosBackgroundColor);
   width: $width;
   border-radius: $borderRadius;
   padding: $padding;
-  color: $todosTextColor;
+  color: var(--todosTextColor);
   border: none;
   letter-spacing: 0.5px;
   font-size: 1rem;

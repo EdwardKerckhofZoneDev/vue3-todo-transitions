@@ -9,8 +9,8 @@ $veryDarkGrayishBlue: hsl(235, 19%, 35%);
 // Dark Theme
 $veryDarkBlue: hsl(235, 21%, 11%);
 $veryDarkDesaturatedBlue: hsl(235, 24%, 19%);
-$lightGrayishBlue: hsl(234, 39%, 85%);
-$lightGrayishBlueHover: hsl(236, 33%, 92%);
+$blightGrayishBlue: hsl(234, 39%, 85%);
+$lightGrayishBlueHover: hsl(0, 0%, 100%);
 $dDarkGrayishBlue: hsl(234, 11%, 52%);
 $dVeryDarkGrayishBlue: hsl(233, 14%, 35%);
 
@@ -23,15 +23,8 @@ $checkedBackround: linear-gradient(
 );
 $todoTitleColor: $veryLightGray;
 
-// Global Theme variables
-$todosBackgroundColor: $veryLightGray;
-$todosTextColor: $veryDarkGrayishBlue;
-$todosInfoTextColor: $darkGrayishBlue;
-$todosCompletedTextColor: $lightGrayishBlue;
-$pageBackgroundColor: $veryLightGrayishBlue;
-
 // VARIABLES
-$borderRadius: 5px;
+$borderRadius: 3px;
 $borders: 1px solid $veryLightGrayishBlue;
 $padding: 20px 25px;
 $width: 100%;

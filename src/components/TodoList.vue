@@ -7,15 +7,17 @@
         :key="todo.id"
         :todo="todo"
         @clicked="deleteTodo"
+        @checked="checkTodo"
+        class="todo-list-item"
+        :class="{ completed: todo.completed }"
       />
       <li class="todo-list-item todo-list-info">
-        <p>{{ todos.length }} items left</p>
+        <p>{{ todos.length }} item(s) left</p>
         <div class="filters">
-          <button class="filter-active">All</button>
-          <button>Active</button>
-          <button>Completed</button>
+          <button @click="filterAll($event)" class="filter-active">All</button>
+          <button @click="filterCompleted($event)">Completed</button>
         </div>
-        <button class="clear">Clear Completed</button>
+        <button @click="clearCompleted" class="clear">Clear Completed</button>
       </li>
     </ul>
     <p v-else class="todo-list-item list-empty">Nothing left to do!</p>
@@ -36,24 +38,80 @@ export default defineComponent({
 
   setup(props, { emit }) {
     const todos = ref([
-      { text: 'Streviz', id: 1 },
-      { text: 'Homework', id: 2 }
+      { text: 'Streviz', completed: false, id: 1 },
+      { text: 'Homework', completed: false, id: 2 }
     ])
 
+    let todosCopy = [...todos.value]
+
     const addNewTodo = (newTodo: string) => {
-      todos.value.push({ text: newTodo, id: Math.random() })
-      newTodo = ''
+      if (newTodo) {
+        todos.value.push({ text: newTodo, completed: false, id: Math.random() })
+        newTodo = ''
+      }
+      updateTodosCopy()
     }
 
     const deleteTodo = (id: number) => {
       todos.value = todos.value.filter((todo) => todo.id !== id)
+      updateTodosCopy()
+    }
+
+    const checkTodo = (id: number) => {
+      let todo = todos.value.find((todo) => todo.id === id)
+      if (todo) todo.completed = !todo.completed
+    }
+
+    const clearCompleted = () => {
+      todos.value = todos.value.filter((todo) => !todo.completed)
+      updateTodosCopy()
+    }
+
+    const filterCompleted = ($event: MouseEvent) => {
+      todos.value = []
+      todosCopy.forEach((todo) => {
+        if (todo.completed) todos.value.push(todo)
+      })
+      if (todos.value.length === 0) todos.value = todosCopy
+      removeActiveClass($event)
+    }
+
+    const filterAll = ($event: MouseEvent) => {
+      todos.value = todosCopy
+      removeActiveClass($event)
+    }
+
+    const removeActiveClass = (event: MouseEvent) => {
+      const filters = document.querySelector('.filters')
+      if (filters) {
+        const buttons = filters.querySelectorAll('button')
+
+        if (buttons) {
+          buttons.forEach((button) => button.classList.remove('filter-active'))
+        }
+      }
+
+      ;(event.target as HTMLButtonElement).classList.add('filter-active')
+    }
+
+    const updateTodosCopy = () => {
+      todosCopy = [...todos.value]
     }
 
     const emitBadValue = () => {
       emit('invalidValue')
     }
 
-    return { todos, addNewTodo, deleteTodo, emitBadValue }
+    return {
+      todos,
+      addNewTodo,
+      deleteTodo,
+      emitBadValue,
+      checkTodo,
+      clearCompleted,
+      filterCompleted,
+      filterAll
+    }
   }
 })
 </script>

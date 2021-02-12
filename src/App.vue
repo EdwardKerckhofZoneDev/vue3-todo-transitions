@@ -24,7 +24,7 @@ export default defineComponent({
 
     const triggerToastMessage = () => {
       showToastMessage.value = true
-      setTimeout(() => (showToastMessage.value = false), 2500)
+      setTimeout(() => (showToastMessage.value = false), 3000)
     }
 
     const toggleDarkMode = () => {}
@@ -38,6 +38,6 @@ export default defineComponent({
 @import './assets/scss/main.scss';
 
 .home-container {
-  margin-top: -9rem;
+  margin-top: -8rem;
 }
 </style>

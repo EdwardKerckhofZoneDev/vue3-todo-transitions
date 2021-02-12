@@ -1,6 +1,13 @@
 <template>
-  <li class="todo-list-item" @click="emitClick">
-    {{ todo.text }}
+  <li @click="checkCompleted">
+    <div class="todo-checker"></div>
+    <p>{{ todo.text }}</p>
+    <img
+      src="../assets/img/icon-cross.svg"
+      alt="Delete Todo"
+      class="todo-remover"
+      @click="emitClick"
+    />
   </li>
 </template>
 
@@ -17,14 +24,18 @@ export default defineComponent({
     }
   },
 
-  emits: ['clicked'],
+  emits: ['clicked', 'checked'],
 
   setup(props, { emit }) {
     const emitClick = () => {
       emit('clicked', props.todo.id)
     }
 
-    return { emitClick }
+    const checkCompleted = () => {
+      emit('checked', props.todo.id)
+    }
+
+    return { emitClick, checkCompleted }
   }
 })
 </script>

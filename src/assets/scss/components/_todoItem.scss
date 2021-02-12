@@ -1,10 +1,69 @@
 .todo-list-item {
   padding: $padding;
-  color: $todosTextColor;
-  font-weight: 500;
-  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &.completed {
+    color: var(--todosCompletedTextColor);
+    text-decoration: line-through;
+
+    .todo-checker {
+      background: $checkedBackround;
+      border: none;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        background-image: url('./assets/img/icon-check.svg');
+        background-size: cover;
+        top: 50%;
+        left: 50%;
+        width: 40%;
+        height: 40%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    p {
+      color: var(--todosCompletedTextColor);
+    }
+  }
 
   &:not(:last-child) {
     border-bottom: $borders;
+    cursor: pointer;
+  }
+
+  &:hover {
+    .todo-remover {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  .todo-checker {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid $veryLightGrayishBlue;
+    margin-right: 1rem;
+  }
+
+  p {
+    color: var(--todosTextColor);
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+
+  .todo-remover {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.3s;
   }
 }

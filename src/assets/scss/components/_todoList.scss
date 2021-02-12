@@ -1,16 +1,17 @@
 .todo-list {
   border-radius: $borderRadius;
-  background-color: $todosBackgroundColor;
+  background-color: var(--todosBackgroundColor);
   box-shadow: $boxShadow;
 
   .todo-list-info {
     display: flex;
     justify-content: space-between;
-    font-size: 0.9rem;
-    color: $darkGrayishBlue;
+    font-size: 0.8rem;
+    color: --todosInfoTextColor;
 
     p {
       flex: 1;
+      font-size: 0.8rem;
     }
 
     .filters {
@@ -22,12 +23,16 @@
       font-weight: 700;
       transition: all 0.3s ease;
 
+      &:nth-child(1) {
+        margin-right: 10px;
+      }
+
       &.filter-active {
         color: $primaryBlue;
       }
 
       &:hover {
-        color: $veryDarkGrayishBlue;
+        color: var(--hoverColor);
       }
     }
 
@@ -39,7 +44,9 @@
   }
 }
 .list-empty {
-  background-color: $todosBackgroundColor;
+  background-color: var(--todosBackgroundColor);
   border-radius: $borderRadius;
   box-shadow: $boxShadow;
+  font-weight: 700;
+  color: var(--todosTextColor);
 }
