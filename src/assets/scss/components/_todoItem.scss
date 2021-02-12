@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   position: relative;
+  cursor: pointer;
 
   &.completed {
     color: var(--todosCompletedTextColor);
@@ -33,7 +34,6 @@
 
   &:not(:last-child) {
     border-bottom: $borders;
-    cursor: pointer;
   }
 
   &:hover {

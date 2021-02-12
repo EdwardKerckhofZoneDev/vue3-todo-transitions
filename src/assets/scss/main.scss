@@ -3,7 +3,6 @@
 @import 'fonts';
 
 @import 'components/header';
-@import 'components/addTodo';
 @import 'components/toastMessage';
 @import 'components/todoList';
 @import 'components/todoItem';
@@ -61,7 +60,11 @@ h1 {
   text-transform: uppercase;
   font-size: 2.2rem; // 32px
   letter-spacing: 0.5rem; // 8px
+  margin-bottom: 10px;
   color: $todoTitleColor;
+}
+p {
+  color: $veryLightGray;
 }
 
 a {
@@ -87,4 +90,19 @@ li {
 ul {
   margin: 0;
   padding: 0;
+}
+
+input {
+  background-color: var(--todosBackgroundColor);
+  width: $width;
+  border-radius: $borderRadius;
+  padding: $padding;
+  color: var(--todosTextColor);
+  border: none;
+  letter-spacing: 0.5px;
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: $boxShadow;
+  outline: none;
+  margin-bottom: 30px;
 }

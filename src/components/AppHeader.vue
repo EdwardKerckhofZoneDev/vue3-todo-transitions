@@ -6,6 +6,9 @@
         <img :src="imageSrc" alt="Dark Mode Toggle" />
       </button>
     </div>
+    <div class="container">
+      <p>Order your todo's however you like with our drag and drop feature!</p>
+    </div>
   </div>
 </template>
 

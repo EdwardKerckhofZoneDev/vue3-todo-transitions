@@ -1,7 +1,47 @@
 <template>
   <div class="todo-list-container">
-    <add-todo @newValue="addNewTodo" @badValue="emitBadValue" />
-    <ul v-if="todos.length > 0" class="todo-list">
+    <div class="inputs">
+      <add-todo @newValue="addNewTodo" @badValue="emitBadValue" />
+      <add-todo @newValue="addNewTodo" @badValue="emitBadValue" />
+    </div>
+    <draggable
+      v-if="todos.length > 0"
+      :list="todos"
+      :disabled="!enabled"
+      item-key="name"
+      class="todo-list"
+      ghost-class="ghost"
+      @start="dragging = true"
+      @end="dragging = false"
+    >
+      <template #item="{ element }">
+        <li
+          @click="checkTodo(element.id)"
+          class="todo-list-item"
+          :class="{ 'not-draggable': !enabled, completed: element.completed }"
+        >
+          <div class="todo-checker"></div>
+          <p>{{ element.text }}</p>
+          <img
+            src="../assets/img/icon-cross.svg"
+            alt="Delete Todo"
+            class="todo-remover"
+            @click="deleteTodo(element.id)"
+          />
+        </li>
+      </template>
+    </draggable>
+    <div class="todo-list-item todo-list-info" v-if="todos.length > 0">
+      <p>{{ todos.length }} item(s) left</p>
+      <div class="filters">
+        <button class="filter-active" @click="filterAll($event)">All</button>
+        <button @click="filterCompleted($event)">Completed</button>
+      </div>
+      <button class="clear" @click="clearCompleted">Clear Completed</button>
+    </div>
+    <p v-else class="todo-list-item list-empty">Nothing left to do!</p>
+
+    <!-- <ul v-if="todos.length > 0" class="todo-list">
       <todo-item
         v-for="todo in todos"
         :key="todo.id"
@@ -11,6 +51,7 @@
         @clicked="deleteTodo"
         @checked="checkTodo"
       />
+
       <li class="todo-list-item todo-list-info">
         <p>{{ todos.length }} item(s) left</p>
         <div class="filters">
@@ -19,20 +60,27 @@
         </div>
         <button class="clear" @click="clearCompleted">Clear Completed</button>
       </li>
-    </ul>
-    <p v-else class="todo-list-item list-empty">Nothing left to do!</p>
+    </ul>-->
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import draggable from 'vuedraggable'
 import TodoItem from './TodoItem.vue'
 import AddTodo from './AddTodo.vue'
 
 export default defineComponent({
   name: 'TodoList',
 
-  components: { TodoItem, AddTodo },
+  components: { TodoItem, AddTodo, draggable },
+
+  data() {
+    return {
+      enabled: true,
+      dragging: false
+    }
+  },
 
   emits: ['invalidValue'],
 
@@ -62,8 +110,10 @@ export default defineComponent({
     }
 
     const checkTodo = (id: number) => {
+      console.log(id)
       let todo = todos.value.find((todo) => todo.id === id)
       if (todo) todo.completed = !todo.completed
+      console.log(todo)
     }
 
     const clearCompleted = () => {

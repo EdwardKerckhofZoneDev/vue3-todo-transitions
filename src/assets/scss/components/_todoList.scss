@@ -1,46 +1,57 @@
+.inputs {
+  display: flex;
+  justify-content: space-between;
+
+  input {
+    width: 48%;
+  }
+}
+
 .todo-list {
-  border-radius: $borderRadius;
+  border-radius: $borderRadius $borderRadius 0 0;
   background-color: var(--todosBackgroundColor);
-  box-shadow: $boxShadow;
+  box-shadow: 0px 80px 50px rgba(0, 0, 0, 0.15);
+}
+.todo-list-info {
+  display: flex;
+  justify-content: space-between;
+  color: --todosInfoTextColor;
+  border-top: 1px solid $veryLightGrayishBlue;
+  border-radius: 0 0 $borderRadius $borderRadius;
+  background-color: var(--todosBackgroundColor);
 
-  .todo-list-info {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    color: --todosInfoTextColor;
+  p {
+    flex: 1;
+    font-size: 0.8rem !important;
+  }
 
-    p {
-      flex: 1;
-      font-size: 0.8rem;
+  .filters {
+    justify-self: center;
+  }
+
+  button {
+    color: $darkGrayishBlue;
+    font-weight: 700;
+    font-size: 0.8rem !important;
+    transition: all 0.3s ease;
+
+    &:nth-child(1) {
+      margin-right: 10px;
     }
 
-    .filters {
-      justify-self: center;
+    &.filter-active {
+      color: $primaryBlue;
     }
 
-    button {
-      color: $darkGrayishBlue;
-      font-weight: 700;
-      transition: all 0.3s ease;
-
-      &:nth-child(1) {
-        margin-right: 10px;
-      }
-
-      &.filter-active {
-        color: $primaryBlue;
-      }
-
-      &:hover {
-        color: var(--hoverColor);
-      }
+    &:hover {
+      color: var(--hoverColor);
     }
+  }
 
-    .clear {
-      flex: 1;
-      text-align: right;
-      font-weight: 400;
-    }
+  .clear {
+    flex: 1;
+    text-align: right;
+    font-weight: 400;
   }
 }
 .list-empty {
