@@ -32,7 +32,7 @@
         </template>
       </draggable>
       <div class="todo-list-item todo-list-info">
-        <p>{{ todosLeft }} item(s) left</p>
+        <p>{{ todos.length }} item(s) left</p>
         <div class="filters">
           <button class="filter-active" @click="filterAll($event)">All</button>
           <button @click="filterCompleted($event)">Completed</button>
@@ -101,19 +101,16 @@ export default defineComponent({
       id: number
     }[]
 
-    const todosLeft = ref(0)
-
     const addNewTodo = (newTodo: string) => {
       if (newTodo) {
         todos.value.push({ text: newTodo, completed: false, id: Math.random() })
-        setTodosLeft(todos.value)
+        localStorage.setItem('todos', JSON.stringify(todos.value))
         newTodo = ''
       }
     }
 
     const deleteTodo = (id: number) => {
       todos.value = todos.value.filter((todo) => todo.id !== id)
-      setTodosLeft(todos.value)
     }
 
     const emitBadValue = () => {
@@ -122,13 +119,15 @@ export default defineComponent({
 
     const checkTodo = (id: number) => {
       let todo = todos.value.find((todo) => todo.id === id)
-      if (todo) todo.completed = !todo.completed
-      setTodosLeft(todos.value)
+      if (todo) {
+        filterAll()
+        todo.completed = !todo.completed
+        localStorage.setItem('todos', JSON.stringify(todos.value))
+      }
     }
 
     const clearCompleted = () => {
       todos.value = todos.value.filter((todo) => !todo.completed)
-      setTodosLeft(todos.value)
     }
 
     const filterCompleted = ($event: MouseEvent) => {
@@ -140,9 +139,11 @@ export default defineComponent({
       else removeActiveClass($event)
     }
 
-    const filterAll = ($event: MouseEvent) => {
+    const filterAll = ($event?: MouseEvent) => {
       todos.value = todosCopy
-      removeActiveClass($event)
+      if ($event) {
+        removeActiveClass($event)
+      }
     }
 
     const removeActiveClass = (event: MouseEvent) => {
@@ -170,26 +171,13 @@ export default defineComponent({
       todosCopy = [...todos.value]
     }
 
-    const setTodosLeft = (
-      todos: {
-        text: string
-        completed: boolean
-        id: number
-      }[]
-    ) => {
-      localStorage.setItem('todos', JSON.stringify(todos))
-      updateTodosCopy()
-      let x = todos.filter((todo) => !todo.completed)
-      todosLeft.value = x.length
-    }
-
     onMounted(() => {
       let todosFromStorage
-      setTodosLeft(todos.value)
       if (localStorage.getItem('todos')) {
         todosFromStorage = JSON.parse(localStorage.getItem('todos')!)
         todos.value = todosFromStorage
       }
+      updateTodosCopy()
     })
 
     return {
@@ -201,8 +189,7 @@ export default defineComponent({
       checkTodo,
       clearCompleted,
       filterCompleted,
-      filterAll,
-      todosLeft
+      filterAll
     }
   }
 })
