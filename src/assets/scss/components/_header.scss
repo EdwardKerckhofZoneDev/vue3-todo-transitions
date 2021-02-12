@@ -1,0 +1,16 @@
+.header {
+  background-color: red;
+  padding: 5rem 0 12rem 0;
+
+  .container-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

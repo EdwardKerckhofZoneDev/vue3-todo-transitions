@@ -1,0 +1,15 @@
+.toast-message {
+  position: absolute;
+  width: 90%;
+  max-width: 600px;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(0.3turn, hsl(280, 87%, 65%), hsl(192, 100%, 67%));
+  border-radius: $borderRadius;
+  box-shadow: $boxShadow;
+  padding: 40px;
+  color: white;
+  font-size: 1.2rem;
+  z-index: 99;
+}

@@ -8,8 +8,17 @@
         :todo="todo"
         @clicked="deleteTodo"
       />
+      <li class="todo-list-item todo-list-info">
+        <p>{{ todos.length }} items left</p>
+        <div class="filters">
+          <button class="filter-active">All</button>
+          <button>Active</button>
+          <button>Completed</button>
+        </div>
+        <button class="clear">Clear Completed</button>
+      </li>
     </ul>
-    <p v-else>Nothing left to do!</p>
+    <p v-else class="todo-list-item list-empty">Nothing left to do!</p>
   </div>
 </template>
 
@@ -48,5 +57,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style lang="scss" scoped></style>

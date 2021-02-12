@@ -1,0 +1,45 @@
+.todo-list {
+  border-radius: $borderRadius;
+  background-color: $todosBackgroundColor;
+  box-shadow: $boxShadow;
+
+  .todo-list-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: $darkGrayishBlue;
+
+    p {
+      flex: 1;
+    }
+
+    .filters {
+      justify-self: center;
+    }
+
+    button {
+      color: $darkGrayishBlue;
+      font-weight: 700;
+      transition: all 0.3s ease;
+
+      &.filter-active {
+        color: $primaryBlue;
+      }
+
+      &:hover {
+        color: $veryDarkGrayishBlue;
+      }
+    }
+
+    .clear {
+      flex: 1;
+      text-align: right;
+      font-weight: 400;
+    }
+  }
+}
+.list-empty {
+  background-color: $todosBackgroundColor;
+  border-radius: $borderRadius;
+  box-shadow: $boxShadow;
+}

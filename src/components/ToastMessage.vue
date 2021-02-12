@@ -11,5 +11,3 @@ export default defineComponent({
   name: 'ToastMessage'
 })
 </script>
-
-<style lang="scss" scoped></style>

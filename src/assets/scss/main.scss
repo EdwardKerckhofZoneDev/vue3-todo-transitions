@@ -1,16 +1,23 @@
 @import 'variables';
 @import 'animations';
+@import 'fonts';
+
+@import 'components/header';
+@import 'components/addTodo';
+@import 'components/toastMessage';
+@import 'components/todoList';
+@import 'components/todoItem';
 
 html {
-  font-size: 1rem;
   box-sizing: border-box;
 }
 
 body {
-  font-family: 'Be Vietnam', sans-serif;
-  font-size: 1rem;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1rem; // 16px
   margin: 0;
   padding: 0;
+  position: relative;
   overflow-x: hidden;
 }
 
@@ -21,24 +28,33 @@ body {
   margin: 0;
 }
 
+.container {
+  margin: 0 auto;
+  width: 90%;
+  max-width: 37.5rem; // 600px
+  position: relative;
+}
+
+h1 {
+  text-transform: uppercase;
+  font-size: 2.2rem; // 32px
+  letter-spacing: 0.5rem; // 8px
+  color: $todoTitleColor;
+}
+
 a {
   text-decoration: none;
   color: inherit;
   display: block;
 }
 
-button,
-input,
-select {
+button {
+  cursor: pointer;
   font-size: inherit;
   border: none;
   background: none;
   font-family: inherit;
   outline: none;
-}
-
-button {
-  cursor: pointer;
 }
 
 li {

@@ -1,7 +1,10 @@
 <template>
+  <toast-message v-if="showToastMessage" />
   <section class="home">
-    <toast-message v-if="showToastMessage" />
-    <todo-list @invalidValue="triggerToastMessage" />
+    <app-header />
+    <div class="container home-container">
+      <todo-list @invalidValue="triggerToastMessage" />
+    </div>
   </section>
 </template>
 
@@ -9,11 +12,12 @@
 import { defineComponent, ref } from 'vue'
 import ToastMessage from './components/ToastMessage.vue'
 import TodoList from './components/TodoList.vue'
+import AppHeader from './components/AppHeader.vue'
 
 export default defineComponent({
   name: 'App',
 
-  components: { ToastMessage, TodoList },
+  components: { ToastMessage, TodoList, AppHeader },
 
   setup() {
     const showToastMessage = ref(false)
@@ -23,11 +27,17 @@ export default defineComponent({
       setTimeout(() => (showToastMessage.value = false), 2500)
     }
 
-    return { showToastMessage, triggerToastMessage }
+    const toggleDarkMode = () => {}
+
+    return { showToastMessage, triggerToastMessage, toggleDarkMode }
   }
 })
 </script>
 
 <style lang="scss">
 @import './assets/scss/main.scss';
+
+.home-container {
+  margin-top: -9rem;
+}
 </style>

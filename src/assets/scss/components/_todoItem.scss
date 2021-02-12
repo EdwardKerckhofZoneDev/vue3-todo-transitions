@@ -1,0 +1,10 @@
+.todo-list-item {
+  padding: $padding;
+  color: $todosTextColor;
+  font-weight: 500;
+  font-size: 1.1rem;
+
+  &:not(:last-child) {
+    border-bottom: $borders;
+  }
+}
