@@ -87,29 +87,33 @@ export default defineComponent({
   emits: ['invalidValue'],
 
   setup(props, { emit }) {
-    const todos = ref([
-      { text: 'Streviz', completed: false, id: 1 },
-      { text: 'Homework', completed: false, id: 2 },
-      { text: 'Develop', completed: false, id: 3 },
-      { text: 'Clean room', completed: false, id: 4 },
-      { text: 'Workout', completed: false, id: 5 }
-    ])
+    const todos = ref<
+      {
+        text: string
+        completed: boolean
+        id: number
+      }[]
+    >([])
 
-    let todosCopy = [...todos.value]
+    let todosCopy: {
+      text: string
+      completed: boolean
+      id: number
+    }[]
 
     const todosLeft = ref(0)
 
     const addNewTodo = (newTodo: string) => {
       if (newTodo) {
         todos.value.push({ text: newTodo, completed: false, id: Math.random() })
+        setTodosLeft(todos.value)
         newTodo = ''
       }
-      updateTodosCopy()
     }
 
     const deleteTodo = (id: number) => {
       todos.value = todos.value.filter((todo) => todo.id !== id)
-      updateTodosCopy()
+      setTodosLeft(todos.value)
     }
 
     const emitBadValue = () => {
@@ -124,7 +128,6 @@ export default defineComponent({
 
     const clearCompleted = () => {
       todos.value = todos.value.filter((todo) => !todo.completed)
-      updateTodosCopy()
       setTodosLeft(todos.value)
     }
 
@@ -174,12 +177,19 @@ export default defineComponent({
         id: number
       }[]
     ) => {
+      localStorage.setItem('todos', JSON.stringify(todos))
+      updateTodosCopy()
       let x = todos.filter((todo) => !todo.completed)
       todosLeft.value = x.length
     }
 
     onMounted(() => {
+      let todosFromStorage
       setTodosLeft(todos.value)
+      if (localStorage.getItem('todos')) {
+        todosFromStorage = JSON.parse(localStorage.getItem('todos')!)
+        todos.value = todosFromStorage
+      }
     })
 
     return {
