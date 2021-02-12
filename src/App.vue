@@ -9,4 +9,6 @@ export default defineComponent({
 })
 </script>
 
-<style></style>
+<style lang="scss">
+@import './assets/scss/main.scss';
+</style>
