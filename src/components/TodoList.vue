@@ -6,18 +6,18 @@
         v-for="todo in todos"
         :key="todo.id"
         :todo="todo"
-        @clicked="deleteTodo"
-        @checked="checkTodo"
         class="todo-list-item"
         :class="{ completed: todo.completed }"
+        @clicked="deleteTodo"
+        @checked="checkTodo"
       />
       <li class="todo-list-item todo-list-info">
         <p>{{ todos.length }} item(s) left</p>
         <div class="filters">
-          <button @click="filterAll($event)" class="filter-active">All</button>
+          <button class="filter-active" @click="filterAll($event)">All</button>
           <button @click="filterCompleted($event)">Completed</button>
         </div>
-        <button @click="clearCompleted" class="clear">Clear Completed</button>
+        <button class="clear" @click="clearCompleted">Clear Completed</button>
       </li>
     </ul>
     <p v-else class="todo-list-item list-empty">Nothing left to do!</p>
@@ -55,6 +55,10 @@ export default defineComponent({
     const deleteTodo = (id: number) => {
       todos.value = todos.value.filter((todo) => todo.id !== id)
       updateTodosCopy()
+    }
+
+    const emitBadValue = () => {
+      emit('invalidValue')
     }
 
     const checkTodo = (id: number) => {
@@ -96,10 +100,6 @@ export default defineComponent({
 
     const updateTodosCopy = () => {
       todosCopy = [...todos.value]
-    }
-
-    const emitBadValue = () => {
-      emit('invalidValue')
     }
 
     return {
