@@ -106,3 +106,7 @@ input {
   outline: none;
   margin-bottom: 30px;
 }
+
+.no-pointer {
+  cursor: initial !important;
+}

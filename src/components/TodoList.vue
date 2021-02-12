@@ -2,44 +2,45 @@
   <div class="todo-list-container">
     <div class="inputs">
       <add-todo @newValue="addNewTodo" @badValue="emitBadValue" />
-      <add-todo @newValue="addNewTodo" @badValue="emitBadValue" />
+      <search-todo @search="searchTodo" />
     </div>
-    <draggable
-      v-if="todos.length > 0"
-      :list="todos"
-      :disabled="!enabled"
-      item-key="name"
-      class="todo-list"
-      ghost-class="ghost"
-      @start="dragging = true"
-      @end="dragging = false"
-    >
-      <template #item="{ element }">
-        <li
-          @click="checkTodo(element.id)"
-          class="todo-list-item"
-          :class="{ 'not-draggable': !enabled, completed: element.completed }"
-        >
-          <div class="todo-checker"></div>
-          <p>{{ element.text }}</p>
-          <img
-            src="../assets/img/icon-cross.svg"
-            alt="Delete Todo"
-            class="todo-remover"
-            @click="deleteTodo(element.id)"
-          />
-        </li>
-      </template>
-    </draggable>
-    <div class="todo-list-item todo-list-info" v-if="todos.length > 0">
-      <p>{{ todos.length }} item(s) left</p>
-      <div class="filters">
-        <button class="filter-active" @click="filterAll($event)">All</button>
-        <button @click="filterCompleted($event)">Completed</button>
+    <div v-if="todos.length > 0">
+      <draggable
+        :list="todos"
+        :disabled="!enabled"
+        item-key="name"
+        class="todo-list"
+        ghost-class="ghost"
+        @start="dragging = true"
+        @end="dragging = false"
+      >
+        <template #item="{ element }">
+          <li
+            @click="checkTodo(element.id)"
+            class="todo-list-item"
+            :class="{ 'not-draggable': !enabled, completed: element.completed }"
+          >
+            <div class="todo-checker"></div>
+            <p>{{ element.text }}</p>
+            <img
+              src="../assets/img/icon-cross.svg"
+              alt="Delete Todo"
+              class="todo-remover"
+              @click="deleteTodo(element.id)"
+            />
+          </li>
+        </template>
+      </draggable>
+      <div class="todo-list-item todo-list-info">
+        <p>{{ todosLeft }} item(s) left</p>
+        <div class="filters">
+          <button class="filter-active" @click="filterAll($event)">All</button>
+          <button @click="filterCompleted($event)">Completed</button>
+        </div>
+        <button class="clear" @click="clearCompleted">Clear Completed</button>
       </div>
-      <button class="clear" @click="clearCompleted">Clear Completed</button>
     </div>
-    <p v-else class="todo-list-item list-empty">Nothing left to do!</p>
+    <p v-else class="todo-list-item list-empty no-pointer">No todo's!</p>
 
     <!-- <ul v-if="todos.length > 0" class="todo-list">
       <todo-item
@@ -65,15 +66,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import draggable from 'vuedraggable'
 import TodoItem from './TodoItem.vue'
 import AddTodo from './AddTodo.vue'
+import SearchTodo from './SearchTodo.vue'
 
 export default defineComponent({
   name: 'TodoList',
 
-  components: { TodoItem, AddTodo, draggable },
+  components: { TodoItem, AddTodo, SearchTodo, draggable },
 
   data() {
     return {
@@ -87,10 +89,15 @@ export default defineComponent({
   setup(props, { emit }) {
     const todos = ref([
       { text: 'Streviz', completed: false, id: 1 },
-      { text: 'Homework', completed: false, id: 2 }
+      { text: 'Homework', completed: false, id: 2 },
+      { text: 'Develop', completed: false, id: 3 },
+      { text: 'Clean room', completed: false, id: 4 },
+      { text: 'Workout', completed: false, id: 5 }
     ])
 
     let todosCopy = [...todos.value]
+
+    const todosLeft = ref(0)
 
     const addNewTodo = (newTodo: string) => {
       if (newTodo) {
@@ -110,15 +117,15 @@ export default defineComponent({
     }
 
     const checkTodo = (id: number) => {
-      console.log(id)
       let todo = todos.value.find((todo) => todo.id === id)
       if (todo) todo.completed = !todo.completed
-      console.log(todo)
+      setTodosLeft(todos.value)
     }
 
     const clearCompleted = () => {
       todos.value = todos.value.filter((todo) => !todo.completed)
       updateTodosCopy()
+      setTodosLeft(todos.value)
     }
 
     const filterCompleted = ($event: MouseEvent) => {
@@ -148,19 +155,44 @@ export default defineComponent({
       ;(event.target as HTMLButtonElement).classList.add('filter-active')
     }
 
+    const searchTodo = (searchValue: string) => {
+      todos.value = []
+      todosCopy.forEach((todo) => {
+        if (todo.text.toLowerCase().includes(searchValue.toLowerCase()))
+          todos.value.push(todo)
+      })
+    }
+
     const updateTodosCopy = () => {
       todosCopy = [...todos.value]
     }
 
+    const setTodosLeft = (
+      todos: {
+        text: string
+        completed: boolean
+        id: number
+      }[]
+    ) => {
+      let x = todos.filter((todo) => !todo.completed)
+      todosLeft.value = x.length
+    }
+
+    onMounted(() => {
+      setTodosLeft(todos.value)
+    })
+
     return {
       todos,
       addNewTodo,
+      searchTodo,
       deleteTodo,
       emitBadValue,
       checkTodo,
       clearCompleted,
       filterCompleted,
-      filterAll
+      filterAll,
+      todosLeft
     }
   }
 })
