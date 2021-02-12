@@ -73,7 +73,7 @@ export default defineComponent({
         if (todo.completed) todos.value.push(todo)
       })
       if (todos.value.length === 0) todos.value = todosCopy
-      removeActiveClass($event)
+      else removeActiveClass($event)
     }
 
     const filterAll = ($event: MouseEvent) => {
