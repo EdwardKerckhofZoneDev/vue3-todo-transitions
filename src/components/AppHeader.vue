@@ -35,8 +35,6 @@ export default defineComponent({
       let x = localStorage.getItem('darkMode')
       if (x && JSON.parse(x)) {
         enableDarkMode()
-      } else {
-        disableDarkMode()
       }
     })
 
