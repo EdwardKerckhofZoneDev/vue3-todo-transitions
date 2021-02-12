@@ -3,7 +3,6 @@
   display: flex;
   align-items: center;
   position: relative;
-  cursor: pointer;
 
   &.completed {
     color: var(--todosCompletedTextColor);
@@ -12,6 +11,7 @@
     .todo-checker {
       background: $checkedBackround;
       border: none;
+      cursor: pointer;
       position: relative;
 
       &::after {
@@ -28,6 +28,7 @@
     }
 
     p {
+      cursor: pointer;
       color: var(--todosCompletedTextColor);
     }
   }
@@ -43,7 +44,16 @@
     }
   }
 
+  .empty {
+    width: 90%;
+    height: 30px;
+    position: absolute;
+    cursor: grab;
+    z-index: 0;
+  }
+
   .todo-checker {
+    z-index: 3;
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -52,12 +62,15 @@
   }
 
   p {
+    z-index: 3;
     color: var(--todosTextColor);
     font-weight: 500;
     font-size: 1.1rem;
   }
 
   .todo-remover {
+    z-index: 3;
+    cursor: pointer;
     position: absolute;
     visibility: hidden;
     opacity: 0;

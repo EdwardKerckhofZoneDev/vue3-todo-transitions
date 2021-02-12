@@ -1,27 +1,23 @@
 <template>
   <div class="todo-list-container">
-    <div class="inputs">
-      <add-todo @newValue="addNewTodo" @badValue="emitBadValue" />
-      <search-todo @search="searchTodo" />
-    </div>
+    <!-- <div class="inputs"> -->
+    <add-todo @newValue="addNewTodo" @badValue="emitBadValue" />
+    <!-- <search-todo @search="searchTodo" /> -->
+    <!-- </div> -->
     <div v-if="todos.length > 0">
       <draggable
         :list="todos"
-        :disabled="!enabled"
+        :disabled="false"
         item-key="name"
         class="todo-list"
         ghost-class="ghost"
-        @start="dragging = true"
-        @end="dragging = false"
+        @end="endDragging"
       >
         <template #item="{ element }">
-          <li
-            @click="checkTodo(element.id)"
-            class="todo-list-item"
-            :class="{ 'not-draggable': !enabled, completed: element.completed }"
-          >
-            <div class="todo-checker"></div>
-            <p>{{ element.text }}</p>
+          <li class="todo-list-item" :class="{ completed: element.completed }">
+            <div class="todo-checker" @click="checkTodo(element.id)"></div>
+            <p @click="checkTodo(element.id)">{{ element.text }}</p>
+            <div @click="checkTodo(element.id)" class="empty"></div>
             <img
               src="../assets/img/icon-cross.svg"
               alt="Delete Todo"
@@ -77,13 +73,6 @@ export default defineComponent({
 
   components: { TodoItem, AddTodo, SearchTodo, draggable },
 
-  data() {
-    return {
-      enabled: true,
-      dragging: false
-    }
-  },
-
   emits: ['invalidValue'],
 
   setup(props, { emit }) {
@@ -111,6 +100,7 @@ export default defineComponent({
 
     const deleteTodo = (id: number) => {
       todos.value = todos.value.filter((todo) => todo.id !== id)
+      localStorage.setItem('todos', JSON.stringify(todos.value))
     }
 
     const emitBadValue = () => {
@@ -120,7 +110,6 @@ export default defineComponent({
     const checkTodo = (id: number) => {
       let todo = todos.value.find((todo) => todo.id === id)
       if (todo) {
-        filterAll()
         todo.completed = !todo.completed
         localStorage.setItem('todos', JSON.stringify(todos.value))
       }
@@ -128,6 +117,7 @@ export default defineComponent({
 
     const clearCompleted = () => {
       todos.value = todos.value.filter((todo) => !todo.completed)
+      localStorage.setItem('todos', JSON.stringify(todos.value))
     }
 
     const filterCompleted = ($event: MouseEvent) => {
@@ -171,6 +161,10 @@ export default defineComponent({
       todosCopy = [...todos.value]
     }
 
+    const endDragging = () => {
+      localStorage.setItem('todos', JSON.stringify(todos.value))
+    }
+
     onMounted(() => {
       let todosFromStorage
       if (localStorage.getItem('todos')) {
@@ -189,7 +183,8 @@ export default defineComponent({
       checkTodo,
       clearCompleted,
       filterCompleted,
-      filterAll
+      filterAll,
+      endDragging
     }
   }
 })
