@@ -1,5 +1,7 @@
 <template>
-  <toast-message v-if="showToastMessage" />
+  <transition name="fade">
+    <toast-message v-if="showToastMessage" />
+  </transition>
   <section class="home">
     <app-header />
     <div class="container home-container">
@@ -27,9 +29,7 @@ export default defineComponent({
       setTimeout(() => (showToastMessage.value = false), 3000)
     }
 
-    const toggleDarkMode = () => {}
-
-    return { showToastMessage, triggerToastMessage, toggleDarkMode }
+    return { showToastMessage, triggerToastMessage }
   }
 })
 </script>

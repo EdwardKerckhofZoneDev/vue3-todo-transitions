@@ -8,9 +8,8 @@
 }
 
 .todo-list {
-  border-radius: $borderRadius $borderRadius 0 0;
-  background-color: var(--todosBackgroundColor);
   box-shadow: 0px 80px 50px rgba(0, 0, 0, 0.15);
+  position: relative;
 }
 .todo-list-info {
   display: flex;

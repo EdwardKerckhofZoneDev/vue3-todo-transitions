@@ -2,6 +2,7 @@
   padding: $padding;
   display: flex;
   align-items: center;
+  background-color: var(--todosBackgroundColor);
   position: relative;
 
   &.completed {

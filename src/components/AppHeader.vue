@@ -7,7 +7,7 @@
       </button>
     </div>
     <div class="container">
-      <p>Order your todo's however you like with our drag and drop feature!</p>
+      <p>Your own simple ToDo list!</p>
     </div>
   </div>
 </template>

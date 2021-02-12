@@ -1,8 +1,8 @@
 .toast-message {
-  position: absolute;
+  position: fixed;
+  margin-top: 7%;
   width: 90%;
   max-width: 600px;
-  top: 5%;
   left: 50%;
   transform: translateX(-50%);
   background: linear-gradient(0.3turn, hsl(280, 87%, 65%), hsl(192, 100%, 67%));
