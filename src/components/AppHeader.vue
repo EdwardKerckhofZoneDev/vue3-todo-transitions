@@ -19,17 +19,17 @@ export default defineComponent({
   name: 'AppHeader',
 
   setup() {
-    const imageSrc = ref('../src/assets/img/icon-moon.svg')
+    const imageSrc = ref('./assets/img/icon-moon.svg')
     let darkMode: boolean = false
 
     const enableDarkMode = () => {
-      imageSrc.value = '../src/assets/img/icon-sun.svg'
+      imageSrc.value = './assets/img/icon-sun.svg'
       document.body.classList.add('darkmode')
       localStorage.setItem('darkMode', JSON.stringify(true))
     }
 
     const disableDarkMode = () => {
-      imageSrc.value = '../src/assets/img/icon-moon.svg'
+      imageSrc.value = './assets/img/icon-moon.svg'
       document.body.classList.remove('darkmode')
       localStorage.setItem('darkMode', JSON.stringify(false))
     }
