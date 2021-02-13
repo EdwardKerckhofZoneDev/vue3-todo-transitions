@@ -12,7 +12,7 @@
     "serve": "vite preview",
     "release": "standard-version",
     "lint": "eslint --ext .js,.vue src --ignore-path .gitignore .",
-    "postrelease": "git push origin v$npm_package_version && git push -u origin master"
+    "postrelease": "git push origin v$npm_package_version && git push -u origin main"
   },
   "repository": {
     "type": "git",
