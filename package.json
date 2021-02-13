@@ -1,6 +1,6 @@
 {
   "name": "vue3-transitions",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Testing out Vue 3 transitions with a simple ToDo app.",
   "author": {
     "email": "edward@zonedev.be",
