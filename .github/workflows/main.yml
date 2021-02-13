@@ -16,7 +16,7 @@ jobs:
       - name: 🔨 Generate Static Project Files
         run: |
           npm install
-          npm run generate
+          npm run build
 
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
