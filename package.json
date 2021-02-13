@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vuedx-typecheck . && vite build",
+    "build": "vite build",
     "serve": "vite preview",
     "release": "standard-version",
     "lint": "eslint --ext .js,.vue src --ignore-path .gitignore .",
@@ -16,12 +16,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/EdwardKerckhofZoneDev/vue3-transitions.git"
+    "url": "https://github.com/EdwardKerckhofZoneDev/vue3-todo-transitions.git"
   },
   "bugs": {
-    "url": "https://github.com/EdwardKerckhofZoneDev/vue3-transitions/issues"
+    "url": "https://github.com/EdwardKerckhofZoneDev/vue3-todo-transitions/issues"
   },
-  "homepage": "https://github.com/EdwardKerckhofZoneDev/vue3-transitions#readme",
+  "homepage": "https://github.com/EdwardKerckhofZoneDev/vue3-todo-transitions#readme",
   "private": false,
   "license": "MIT",
   "dependencies": {

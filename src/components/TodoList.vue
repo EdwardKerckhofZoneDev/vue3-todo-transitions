@@ -23,7 +23,7 @@
             >
               <div class="todo-checker" @click="checkTodo(element.id)"></div>
               <p @click="checkTodo(element.id)">{{ element.text }}</p>
-              <div @click="checkTodo(element.id)" class="empty"></div>
+              <div class="empty" @click="checkTodo(element.id)"></div>
               <img
                 src="../assets/img/icon-cross.svg"
                 alt="Delete Todo"
@@ -53,12 +53,11 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import draggable from 'vuedraggable'
 import AddTodo from './AddTodo.vue'
-import SearchTodo from './SearchTodo.vue'
 
 export default defineComponent({
   name: 'TodoList',
 
-  components: { AddTodo, SearchTodo, draggable },
+  components: { AddTodo, draggable },
 
   emits: ['invalidValue'],
 

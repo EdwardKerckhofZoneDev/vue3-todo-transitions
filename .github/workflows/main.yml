@@ -25,6 +25,6 @@ jobs:
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: dist/
-          server-dir: /public_html/
+          server-dir: /todo.zonedev.be/
           log-level: standard
           dry-run: false
