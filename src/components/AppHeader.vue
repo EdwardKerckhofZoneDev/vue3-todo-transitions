@@ -14,22 +14,23 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
-
+import iconMoon from '../assets/img/icon-moon.svg'
+import iconSun from '../assets/img/icon-sun.svg'
 export default defineComponent({
   name: 'AppHeader',
 
   setup() {
-    const imageSrc = ref('./assets/img/icon-moon.svg')
+    const imageSrc = ref(iconMoon)
     let darkMode: boolean = false
 
     const enableDarkMode = () => {
-      imageSrc.value = './assets/img/icon-sun.svg'
+      imageSrc.value = iconSun
       document.body.classList.add('darkmode')
       localStorage.setItem('darkMode', JSON.stringify(true))
     }
 
     const disableDarkMode = () => {
-      imageSrc.value = './assets/img/icon-moon.svg'
+      imageSrc.value = iconMoon
       document.body.classList.remove('darkmode')
       localStorage.setItem('darkMode', JSON.stringify(false))
     }
